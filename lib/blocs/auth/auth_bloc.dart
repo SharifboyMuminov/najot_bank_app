@@ -1,8 +1,9 @@
-import 'package:banking_app/blocs/auth/auth_event.dart';
-import 'package:banking_app/blocs/auth/auth_state.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled1/blocs/auth/auth_event.dart';
+import 'package:untitled1/blocs/auth/auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitialState()) {
