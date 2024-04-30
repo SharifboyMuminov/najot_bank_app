@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "809638016251",
+    "project_id": "najot-bank-app",
+    "storage_bucket": "najot-bank-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809638016251:android:3e9a2ef6a30e886fef2c5e",
+        "android_client_info": {
+          "package_name": "najot_bank.uz.untitled1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANLMWp6cDIZXBBJQIgq98DFIQ6MpQmItc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
