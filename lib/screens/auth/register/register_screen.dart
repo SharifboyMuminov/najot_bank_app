@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled1/blocs/auth/auth_bloc.dart';
+import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/screens/auth/login/login_screen.dart';
 import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
 import 'package:untitled1/utils/app_colors.dart';
@@ -16,8 +19,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -26,19 +28,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 30.h),
         child: Column(
           children: [
             Image.asset(AppImages.imgForRegister),
             UniversalTextInput(
-              controller: firstNameController,
-              hintText: "Enter first name...",
-              type: TextInputType.text,
-              regExp: AppConstants.textRegExp,
-              errorTitle: "invalid input :(",
-            ),
-            UniversalTextInput(
-              controller: lastNameController,
-              hintText: "Enter last name...",
+              controller: fullNameController,
+              hintText: "Enter full name...",
               type: TextInputType.text,
               regExp: AppConstants.textRegExp,
               errorTitle: "invalid input :(",
@@ -97,16 +93,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             Container(
               width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+              margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.blue,
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.r)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (AppConstants.passwordRegExp
+                          .hasMatch(passwordController.text) &&
+                      AppConstants.emailRegExp.hasMatch(emailController.text) &&
+                      AppConstants.textRegExp
+                          .hasMatch(fullNameController.text)) {
+                    debugPrint("Qonday");
+                    context.read<AuthBloc>().add(
+                          AuthRegisterEvent(
+                            name: fullNameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                            imageUrl: '',
+                          ),
+                        );
+                  }
+                },
                 child: Text(
-                  "asdf",
+                  "Ok",
                   style: TextStyle(
                     color: AppColors.white,
                     fontSize: 20.sp,
@@ -124,8 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     emailController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
+    fullNameController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();

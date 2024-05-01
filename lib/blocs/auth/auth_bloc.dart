@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         password: event.password,
       );
+
       await FirebaseAuth.instance.currentUser!.updateDisplayName(event.name);
       _fireStore.collection('users').doc(userCredential.user!.uid).set({
         "uuid": userCredential.user!.uid,
