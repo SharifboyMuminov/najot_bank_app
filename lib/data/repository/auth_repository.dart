@@ -71,7 +71,7 @@ class AuthRepository {
   //   }
   // }
 
-  Future<NetworkResponse> signOutUser() async {
+  Future<NetworkResponse> logOutUser() async {
     try {
       await FirebaseAuth.instance.signOut();
       return NetworkResponse(data: "success");

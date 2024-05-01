@@ -19,6 +19,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoginEvent>(_login);
     on<AuthRegisterEvent>(_register);
     on<AuthCheckEvent>(_checkAuth);
+    on<AuthLogOutEvent>(_logOutUser);
+  }
+
+  Future<void> _logOutUser(AuthLogOutEvent event, emit) async {
+    await authRepository.logOutUser();
   }
 
   Future<void> _login(AuthLoginEvent event, emit) async {

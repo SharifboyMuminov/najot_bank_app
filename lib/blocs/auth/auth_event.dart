@@ -28,6 +28,8 @@ class AuthRegisterEvent extends AuthEvent {
   List<Object?> get props => [userModel];
 }
 
-class AuthSignOutUserEvent extends AuthEvent {}
+class AuthSignOutEvent extends AuthEvent {}
+
+class AuthLogOutEvent extends AuthEvent {}
 
 class AuthCheckEvent extends AuthEvent {}

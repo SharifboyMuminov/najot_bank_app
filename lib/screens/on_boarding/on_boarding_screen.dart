@@ -44,6 +44,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   padding: EdgeInsets.symmetric(vertical: 15.h)),
               onPressed: () {
                 if (activeIndex == 2) {
+                  debugPrint("Makkami?");
+
                   StorageRepository.setBool(
                     key: "is_new_user",
                     value: true,
