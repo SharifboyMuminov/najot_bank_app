@@ -1,13 +1,30 @@
-abstract class AuthState {}
+import 'package:equatable/equatable.dart';
+import 'package:untitled1/data/models/from_status/from_status_enum.dart';
 
-class AuthInitialState extends AuthState {}
+class AuthState extends Equatable {
+  final String errorMessage;
+  final String statusMessage;
+  final FormStatus formStatus;
 
-class AuthLoadingState extends AuthState {}
+  const AuthState({
+    required this.formStatus,
+    required this.errorMessage,
+    required this.statusMessage,
+  });
 
-class AuthSuccessState extends AuthState {}
+  AuthState copyWith({
+    String? errorMessage,
+    String? statusMessage,
+    FormStatus? formStatus,
+  }) {
+    return AuthState(
+      formStatus: formStatus ?? this.formStatus,
+      errorMessage: errorMessage ?? this.errorMessage,
+      statusMessage: statusMessage ?? this.statusMessage,
+    );
+  }
 
-class AuthErrorState extends AuthState {
-  AuthErrorState({required this.errorText});
-
-  final String errorText;
+  @override
+  // TODO: implement props
+  List<Object?> get props => [formStatus, errorMessage, statusMessage];
 }

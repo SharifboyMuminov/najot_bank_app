@@ -1,34 +1,32 @@
+import 'package:equatable/equatable.dart';
 
-import 'package:flutter/cupertino.dart';
+abstract class AuthEvent extends Equatable {
 
-abstract class AuthEvent {}
-
-class AuthInitialEvent extends AuthEvent {}
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
 class AuthLoginEvent extends AuthEvent {
-  AuthLoginEvent({required this.email, required this.password});
-
   final String email;
   final String password;
+
+  AuthLoginEvent({required this.password, required this.email});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [password, email];
 }
 
 class AuthRegisterEvent extends AuthEvent {
-  AuthRegisterEvent({
-    required this.name,
-    required this.email,
-    required this.password,
-    required this.imageUrl,
-  });
-
-  final String name;
   final String email;
   final String password;
-  final String imageUrl;
+
+  AuthRegisterEvent({required this.password, required this.email});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [password, email];
 }
 
-class AuthGoogleEvent extends AuthEvent {
-  AuthGoogleEvent(this.context, [this.clientId]);
-
-  final BuildContext context;
-  final String? clientId;
-}
+class AuthSignOutUserEvent extends AuthEvent {}

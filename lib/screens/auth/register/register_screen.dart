@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled1/blocs/auth/auth_bloc.dart';
-import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/screens/auth/login/login_screen.dart';
 import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
 import 'package:untitled1/utils/app_colors.dart';
@@ -102,21 +99,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.circular(10.r)),
                 ),
                 onPressed: () {
-                  if (AppConstants.passwordRegExp
-                          .hasMatch(passwordController.text) &&
-                      AppConstants.emailRegExp.hasMatch(emailController.text) &&
-                      AppConstants.textRegExp
-                          .hasMatch(fullNameController.text)) {
-                    debugPrint("Qonday");
-                    context.read<AuthBloc>().add(
-                          AuthRegisterEvent(
-                            name: fullNameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            imageUrl: '',
-                          ),
-                        );
-                  }
                 },
                 child: Text(
                   "Ok",

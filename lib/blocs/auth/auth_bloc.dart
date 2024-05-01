@@ -1,91 +1,57 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/blocs/auth/auth_state.dart';
+import 'package:untitled1/data/models/from_status/from_status_enum.dart';
+import 'package:untitled1/data/models/network_response.dart';
+import 'package:untitled1/data/repository/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitialState()) {
+  final AuthRepository authRepository;
+
+  AuthBloc({required this.authRepository})
+      : super(
+          const AuthState(
+            formStatus: FormStatus.pure,
+            errorMessage: "",
+            statusMessage: "",
+          ),
+        ) {
     on<AuthLoginEvent>(_login);
     on<AuthRegisterEvent>(_register);
-    on<AuthInitialEvent>(_initialState);
   }
 
-  User? getUser = FirebaseAuth.instance.currentUser;
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-
   Future<void> _login(AuthLoginEvent event, emit) async {
-    emit(AuthLoadingState());
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: event.email,
-        password: event.password,
-      );
-      _fireStore.collection('users').doc(userCredential.user!.uid).set(
-        {
-          "uuid": userCredential.user!.uid,
-          "email": event.email,
-        },
-        SetOptions(
-          merge: true,
-        ),
-      );
-      emit(AuthSuccessState());
-    } catch (e) {
-      emit(AuthErrorState(errorText: e.toString()));
-    }
+    emit(state.copyWith(formStatus: FormStatus.loading));
+
+    NetworkResponse networkResponse =
+        await authRepository.loginWithEmailAndPassword(
+      email: event.email,
+      password: event.password,
+    );
+
+    _result(networkResponse, emit);
   }
 
   Future<void> _register(AuthRegisterEvent event, emit) async {
-    emit(AuthLoadingState());
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: event.email,
-        password: event.password,
-      );
+    emit(state.copyWith(formStatus: FormStatus.loading));
 
-      await FirebaseAuth.instance.currentUser!.updateDisplayName(event.name);
-      _fireStore.collection('users').doc(userCredential.user!.uid).set({
-        "uuid": userCredential.user!.uid,
-        "email": event.email,
-        'name': event.name,
-        'image_url': event.imageUrl,
-      });
-      emit(AuthSuccessState());
-    } catch (e) {
-      emit(AuthErrorState(errorText: e.toString()));
+    NetworkResponse networkResponse =
+        await authRepository.registerWithEmailAndPassword(
+      email: event.email,
+      password: event.password,
+    );
+    _result(networkResponse, emit);
+  }
+
+  _result(NetworkResponse networkResponse, emit) {
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(
+        formStatus: FormStatus.authenticated,
+      ));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.unauthenticated,
+          errorMessage: networkResponse.errorText));
     }
   }
-
-  _initialState(AuthInitialEvent event, emit) {
-    emit(AuthInitialState());
-  }
-
-// Future<void> signInWithGoogle(AuthGoogleEvent event, emit) async {
-//   emit(AuthLoadingState());
-//
-//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//
-//   final GoogleSignInAuthentication? googleAuth =
-//       await googleUser?.authentication;
-//
-//   final credential = GoogleAuthProvider.credential(
-//     accessToken: googleAuth?.accessToken,
-//     idToken: googleAuth?.idToken,
-//   );
-//
-//   UserCredential userCredential =
-//       await FirebaseAuth.instance.signInWithCredential(credential);
-//   emit(AuthSuccessState());
-//   if (userCredential.user != null) {
-//     Navigator.pushReplacement(
-//       event.context,
-//       MaterialPageRoute(
-//         builder: (context) => const ContactScreen(),
-//       ),
-//     );
-//   }
-// }
 }
