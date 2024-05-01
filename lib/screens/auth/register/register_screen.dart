@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled1/screens/auth/login/login_screen.dart';
 import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
+import 'package:untitled1/utils/app_colors.dart';
 import 'package:untitled1/utils/app_contains.dart';
 import 'package:untitled1/utils/app_images.dart';
 import 'package:untitled1/utils/size_utils.dart';
@@ -23,50 +25,98 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Image.asset(AppImages.imgForRegister),
-                  UniversalTextInput(
-                    controller: firstNameController,
-                    hintText: "Enter first name...",
-                    type: TextInputType.text,
-                    regExp: AppConstants.textRegExp,
-                    errorTitle: "invalid input :(",
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(AppImages.imgForRegister),
+            UniversalTextInput(
+              controller: firstNameController,
+              hintText: "Enter first name...",
+              type: TextInputType.text,
+              regExp: AppConstants.textRegExp,
+              errorTitle: "invalid input :(",
+            ),
+            UniversalTextInput(
+              controller: lastNameController,
+              hintText: "Enter last name...",
+              type: TextInputType.text,
+              regExp: AppConstants.textRegExp,
+              errorTitle: "invalid input :(",
+            ),
+            UniversalTextInput(
+              controller: emailController,
+              hintText: "Enter email...",
+              type: TextInputType.emailAddress,
+              regExp: AppConstants.emailRegExp,
+              errorTitle: "invalid input :(",
+            ),
+            UniversalTextInput(
+              controller: passwordController,
+              hintText: "Enter password...",
+              type: TextInputType.emailAddress,
+              regExp: AppConstants.passwordRegExp,
+              errorTitle: "invalid input :(",
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don’t have an account?",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
                   ),
-                  UniversalTextInput(
-                    controller: lastNameController,
-                    hintText: "Enter last name...",
-                    type: TextInputType.text,
-                    regExp: AppConstants.textRegExp,
-                    errorTitle: "invalid input :(",
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.r),
+                    ),
                   ),
-                  UniversalTextInput(
-                    controller: emailController,
-                    hintText: "Enter email...",
-                    type: TextInputType.emailAddress,
-                    regExp: AppConstants.emailRegExp,
-                    errorTitle: "invalid input :(",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const LoginScreen();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(
+                    " Login now",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                  UniversalTextInput(
-                    controller: passwordController,
-                    hintText: "Enter password...",
-                    type: TextInputType.emailAddress,
-                    regExp: AppConstants.passwordRegExp,
-                    errorTitle: "invalid input :(",
+                ),
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r)),
+                ),
+                onPressed: () {},
+                child: Text(
+                  "asdf",
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-          TextButton(
-              style: TextButton.styleFrom(backgroundColor: Colors.redAccent),
-              onPressed: () {},
-              child: Text("asdf")),
-        ],
+          ],
+        ),
       ),
     );
   }

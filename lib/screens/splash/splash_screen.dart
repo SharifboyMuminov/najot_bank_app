@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled1/data/local/storage_repository.dart';
+import 'package:untitled1/screens/auth/login/login_screen.dart';
 import 'package:untitled1/screens/auth/register/register_screen.dart';
 import 'package:untitled1/screens/on_boarding/on_boarding_screen.dart';
 import 'package:untitled1/screens/tab_box/tab_screen.dart';
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RegisterScreen(),
+            builder: (context) => const LoginScreen(),
           ),
         );
       } else {
