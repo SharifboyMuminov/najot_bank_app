@@ -15,16 +15,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  _init(FormStatus formState) {
-    if (formState == FormStatus.authenticated) {
-      Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
-    } else {
-      bool onboard = StorageRepository.getBool(key: "onboard");
-      if (onboard) {
+  _init(FormStatus formStatus) async {
+    await Future.delayed(
+      const Duration(seconds: 2),
+    );
+    debugPrint("Qonday");
+
+    if (formStatus != FormStatus.authenticated) {
+      bool isNewUser = StorageRepository.getBool(key: "is_new_user");
+      if (isNewUser) {
         Navigator.pushReplacementNamed(context, RouteNames.authRoute);
       } else {
         Navigator.pushReplacementNamed(context, RouteNames.onBoardingRoute);
       }
+    } else {
+      Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
     }
   }
 
@@ -34,16 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
     height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: BlocBuilder<AuthBloc, AuthState>(
-        builder: (BuildContext context, AuthState state) {
+      body: BlocListener<AuthBloc, AuthState>(
+        child: const Center(
+          child: Icon(
+            Icons.access_time_filled_outlined,
+            color: Colors.green,
+            size: 200,
+          ),
+        ),
+        listener: (BuildContext context, AuthState state) {
           _init(state.formStatus);
-          return Center(
-            child: Icon(
-              Icons.access_time_filled_outlined,
-              color: Colors.green,
-              size: 200,
-            ),
-          );
         },
       ),
     );

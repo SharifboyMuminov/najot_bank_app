@@ -61,5 +61,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _checkAuth(AuthCheckEvent event, emit) async {}
+  Future<void> _checkAuth(AuthCheckEvent event, emit) async {
+    NetworkResponse networkResponse = await authRepository.checkUser();
+
+    _result(networkResponse, emit);
+  }
 }

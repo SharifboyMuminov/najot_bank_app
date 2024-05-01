@@ -26,6 +26,19 @@ class AuthRepository {
     }
   }
 
+  Future<NetworkResponse> checkUser() async {
+    NetworkResponse networkResponse = NetworkResponse();
+
+    try {
+      networkResponse.data = FirebaseAuth.instance.currentUser;
+    } on FirebaseAuthException catch (error) {
+      networkResponse.errorText = error.code;
+    } catch (err) {
+      networkResponse.errorText = err.toString();
+    }
+    return networkResponse;
+  }
+
   Future<NetworkResponse> registerWithEmailAndPassword({
     required String email,
     required String password,
