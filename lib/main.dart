@@ -5,10 +5,10 @@ import 'package:untitled1/app/app.dart';
 import 'package:untitled1/service/firebase_options.dart';
 
 Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  WidgetsFlutterBinding.ensureInitialized();
 
   runApp(App());
 }

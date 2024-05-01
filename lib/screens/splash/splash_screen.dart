@@ -50,6 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    // debugPrint("Qonday");
     _init();
 
     super.initState();

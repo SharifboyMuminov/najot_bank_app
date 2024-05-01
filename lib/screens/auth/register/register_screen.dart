@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
+import 'package:untitled1/utils/app_contains.dart';
+import 'package:untitled1/utils/app_images.dart';
+import 'package:untitled1/utils/size_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,7 +22,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Image.asset(AppImages.imgForRegister),
+                  UniversalTextInput(
+                    controller: firstNameController,
+                    hintText: "Enter first name...",
+                    type: TextInputType.text,
+                    regExp: AppConstants.textRegExp,
+                    errorTitle: "invalid input :(",
+                  ),
+                  UniversalTextInput(
+                    controller: lastNameController,
+                    hintText: "Enter last name...",
+                    type: TextInputType.text,
+                    regExp: AppConstants.textRegExp,
+                    errorTitle: "invalid input :(",
+                  ),
+                  UniversalTextInput(
+                    controller: emailController,
+                    hintText: "Enter email...",
+                    type: TextInputType.emailAddress,
+                    regExp: AppConstants.emailRegExp,
+                    errorTitle: "invalid input :(",
+                  ),
+                  UniversalTextInput(
+                    controller: passwordController,
+                    hintText: "Enter password...",
+                    type: TextInputType.emailAddress,
+                    regExp: AppConstants.passwordRegExp,
+                    errorTitle: "invalid input :(",
+                  ),
+                ],
+              ),
+            ),
+          ),
+          TextButton(
+              style: TextButton.styleFrom(backgroundColor: Colors.redAccent),
+              onPressed: () {},
+              child: Text("asdf")),
+        ],
+      ),
+    );
   }
 
   @override
