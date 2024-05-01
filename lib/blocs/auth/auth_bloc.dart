@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ) {
     on<AuthLoginEvent>(_login);
     on<AuthRegisterEvent>(_register);
+    on<AuthCheckEvent>(_checkAuth);
   }
 
   Future<void> _login(AuthLoginEvent event, emit) async {
@@ -37,8 +38,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     NetworkResponse networkResponse =
         await authRepository.registerWithEmailAndPassword(
-      email: event.email,
-      password: event.password,
+      email: event.userModel.email,
+      password: event.userModel.password,
     );
     _result(networkResponse, emit);
   }
@@ -54,4 +55,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           errorMessage: networkResponse.errorText));
     }
   }
+
+  Future<void> _checkAuth(AuthCheckEvent event, emit) async {}
 }

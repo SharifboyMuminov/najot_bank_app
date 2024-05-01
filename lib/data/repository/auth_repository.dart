@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:untitled1/data/models/network_response.dart';
+import 'package:untitled1/data/my_exceptions/firebase_exceptions.dart';
 
 class AuthRepository {
   Future<NetworkResponse> loginWithEmailAndPassword({
@@ -16,7 +17,7 @@ class AuthRepository {
       return NetworkResponse(data: userCredential);
     } on FirebaseAuthException catch (e) {
       return NetworkResponse(
-        errorText: "Login with Email and Password Failure: ${e.message}",
+        errorText: SignUpWithEmailAndPasswordFailure.fromCode(e.code).message,
       );
     } catch (error) {
       // print("ERROR: ${error.toString()}");
@@ -38,7 +39,7 @@ class AuthRepository {
       return NetworkResponse(data: userCredential);
     } on FirebaseAuthException catch (e) {
       return NetworkResponse(
-        errorText: "Registration Failure: ${e.message}",
+        errorText: LogInWithEmailAndPasswordFailure.fromCode(e.code).message,
       );
     } catch (error) {
       return NetworkResponse(
