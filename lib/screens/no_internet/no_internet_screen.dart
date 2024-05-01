@@ -1,9 +1,9 @@
-import 'package:banking_app/blocs/connectivity/connectivity_bloc.dart';
-import 'package:banking_app/blocs/connectivity/connectivity_state.dart';
-import 'package:banking_app/utils/app_colors.dart';
-import 'package:banking_app/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled1/blocs/connectivity/connectivity_bloc.dart';
+import 'package:untitled1/blocs/connectivity/connectivity_state.dart';
+import 'package:untitled1/utils/app_colors.dart';
+import 'package:untitled1/utils/size_utils.dart';
 
 class NoInternetScreen extends StatefulWidget {
   const NoInternetScreen({Key? key, required this.onInternetComeBack})

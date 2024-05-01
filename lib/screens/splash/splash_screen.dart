@@ -1,10 +1,10 @@
-import 'package:banking_app/data/local/storage_repository.dart';
-import 'package:banking_app/screens/auth/register/register_screen.dart';
-import 'package:banking_app/screens/on_boarding/on_boarding_screen.dart';
-import 'package:banking_app/screens/tab_box/tab_screen.dart';
-import 'package:banking_app/utils/size_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled1/data/local/storage_repository.dart';
+import 'package:untitled1/screens/auth/register/register_screen.dart';
+import 'package:untitled1/screens/on_boarding/on_boarding_screen.dart';
+import 'package:untitled1/screens/tab_box/tab_screen.dart';
+import 'package:untitled1/utils/size_utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

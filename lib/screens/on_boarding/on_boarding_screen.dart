@@ -1,6 +1,6 @@
-import 'package:banking_app/data/local/storage_repository.dart';
-import 'package:banking_app/screens/auth/register/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled1/data/local/storage_repository.dart';
+import 'package:untitled1/screens/auth/register/register_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});

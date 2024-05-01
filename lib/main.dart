@@ -10,5 +10,5 @@ Future<void> main(List<String> args) async {
   );
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp( App());
+  runApp(App());
 }

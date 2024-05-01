@@ -1,8 +1,8 @@
-import 'package:banking_app/utils/app_colors.dart';
-import 'package:banking_app/utils/app_constants.dart';
-import 'package:banking_app/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:untitled1/utils/app_colors.dart';
+import 'package:untitled1/utils/app_constants.dart';
+import 'package:untitled1/utils/app_images.dart';
 
 class PasswordTextInput extends StatefulWidget {
   const PasswordTextInput({super.key, required this.controller});
@@ -41,7 +41,7 @@ class _PasswordTextInputState extends State<PasswordTextInput> {
           filled: true,
           prefixIcon: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: SvgPicture.asset(AppImages.password),
+            child: Icon(Icons.lock),
           ),
           contentPadding: const EdgeInsets.all(12),
           labelText: "Password",
