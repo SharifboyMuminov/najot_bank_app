@@ -24,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       bool isNewUser = StorageRepository.getBool(key: "is_new_user");
+      debugPrint("------------------- $isNewUser");
       if (isNewUser) {
         Navigator.pushReplacement(
           context,
