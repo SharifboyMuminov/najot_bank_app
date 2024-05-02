@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
       const Duration(seconds: 2),
     );
-    debugPrint("Qonday");
+    // debugPrint("Qonday");
 
     if (formStatus != FormStatus.authenticated) {
       bool isNewUser = StorageRepository.getBool(key: "is_new_user");

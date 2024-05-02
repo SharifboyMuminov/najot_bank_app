@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>application-identifier</key>
+    <string>12355456A7.com.whatever.tinker</string>
+    <key>aps-environment</key>
+    <string>development</string>
+    <key>get-task-allow</key>
+    <true/>
+    <key>keychain-access-groups</key>
+    <array>
+        <string>12355456A7.*</string>
+    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -45,5 +55,6 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
 </dict>
 </plist>

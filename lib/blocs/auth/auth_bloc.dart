@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/blocs/auth/auth_state.dart';
@@ -35,7 +37,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       password: event.password,
     );
 
-    _result(networkResponse, emit);
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(
+        formStatus: FormStatus.authenticated,
+      ));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.unauthenticated,
+          errorMessage: networkResponse.errorText));
+    }
   }
 
   Future<void> _register(AuthRegisterEvent event, emit) async {
@@ -46,10 +56,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       email: event.userModel.email,
       password: event.userModel.password,
     );
-    _result(networkResponse, emit);
-  }
-
-  _result(NetworkResponse networkResponse, emit) {
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(
         formStatus: FormStatus.authenticated,
@@ -63,7 +69,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _checkAuth(AuthCheckEvent event, emit) async {
     NetworkResponse networkResponse = await authRepository.checkUser();
+    // User? user = networkResponse.data;
+    // if (user != null) {
+    //   debugPrint(user.email);
+    // } else {
+    //   debugPrint("Nullllllllll");
+    // }
 
-    _result(networkResponse, emit);
+    if (networkResponse.data != null) {
+      emit(state.copyWith(
+        formStatus: FormStatus.authenticated,
+      ));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.unauthenticated,
+          errorMessage: networkResponse.errorText));
+    }
   }
 }

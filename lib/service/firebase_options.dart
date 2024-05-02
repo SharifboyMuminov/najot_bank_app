@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:809638016251:android:3e9a2ef6a30e886fef2c5e',
     messagingSenderId: '809638016251',
     projectId: 'najot-bank-app',
+    databaseURL: 'https://najot-bank-app-default-rtdb.firebaseio.com',
     storageBucket: 'najot-bank-app.appspot.com',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:809638016251:ios:eb7bc2a30308c88aef2c5e',
     messagingSenderId: '809638016251',
     projectId: 'najot-bank-app',
+    databaseURL: 'https://najot-bank-app-default-rtdb.firebaseio.com',
     storageBucket: 'najot-bank-app.appspot.com',
+    iosClientId: '809638016251-n29jl1ccllvaiml991dcvfk2vlc8pfto.apps.googleusercontent.com',
     iosBundleId: 'najotbank.uz.untitled1',
   );
 }

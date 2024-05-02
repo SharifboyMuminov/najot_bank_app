@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>809638016251-n29jl1ccllvaiml991dcvfk2vlc8pfto.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.809638016251-n29jl1ccllvaiml991dcvfk2vlc8pfto</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAFkTabZB_7TNGkw--CPDUnZz7UFMwH13A</string>
 	<key>GCM_SENDER_ID</key>
@@ -26,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:809638016251:ios:eb7bc2a30308c88aef2c5e</string>
+	<key>DATABASE_URL</key>
+	<string>https://najot-bank-app-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "809638016251",
+    "firebase_url": "https://najot-bank-app-default-rtdb.firebaseio.com",
     "project_id": "najot-bank-app",
     "storage_bucket": "najot-bank-app.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "najot_bank.uz.untitled1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "809638016251-609n0ahun8e8757o8mno15j1gv8gtpa7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyANLMWp6cDIZXBBJQIgq98DFIQ6MpQmItc"
@@ -20,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809638016251-609n0ahun8e8757o8mno15j1gv8gtpa7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "809638016251-n29jl1ccllvaiml991dcvfk2vlc8pfto.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "najotbank.uz.untitled1"
+              }
+            }
+          ]
         }
       }
     }
