@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled1/utils/app_colors.dart';
 import 'package:untitled1/utils/size_utils.dart';
 
@@ -11,6 +10,7 @@ class UniversalTextInput extends StatelessWidget {
     required this.hintText,
     required this.type,
     required this.regExp,
+    required this.onChange,
     required this.errorTitle,
     this.textInputAction = TextInputAction.next,
   });
@@ -20,6 +20,7 @@ class UniversalTextInput extends StatelessWidget {
   final TextInputType type;
   final RegExp regExp;
   final String errorTitle;
+  final ValueChanged<String> onChange;
   final TextInputAction textInputAction;
 
   @override
@@ -38,6 +39,7 @@ class UniversalTextInput extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
       child: TextFormField(
+        onChanged: onChange,
         style: Theme.of(context).textTheme.bodyMedium,
         controller: controller,
         keyboardType: type,
@@ -52,11 +54,11 @@ class UniversalTextInput extends StatelessWidget {
         },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-
           fillColor: Theme.of(context).primaryColorLight,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           filled: true,
-          contentPadding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 20.h),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
           labelText: hintText,
           labelStyle: Theme.of(context).textTheme.bodyMedium,
           enabledBorder: OutlineInputBorder(

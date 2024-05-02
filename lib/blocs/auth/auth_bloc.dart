@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/blocs/auth/auth_state.dart';
@@ -43,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
     } else {
       emit(state.copyWith(
-          formStatus: FormStatus.unauthenticated,
+          formStatus: FormStatus.error,
           errorMessage: networkResponse.errorText));
     }
   }
@@ -62,7 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
     } else {
       emit(state.copyWith(
-          formStatus: FormStatus.unauthenticated,
+          formStatus: FormStatus.error,
           errorMessage: networkResponse.errorText));
     }
   }
