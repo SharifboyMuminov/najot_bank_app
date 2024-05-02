@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/auth/auth_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/blocs/auth/auth_state.dart';
+import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
+import 'package:untitled1/blocs/user_profile/user_profile_event.dart';
 import 'package:untitled1/data/models/from_status/from_status_enum.dart';
 import 'package:untitled1/data/models/user/user_model.dart';
 import 'package:untitled1/screens/auth/login/login_screen.dart';
@@ -133,6 +135,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         } else if (state.formStatus == FormStatus.authenticated) {
+          if (state.statusMessage == "new_user") {
+            debugPrint("O'hshadi :)");
+            context
+                .read<UserProfileBloc>()
+                .add(AddUserProfileEvent(userModel: userModel));
+          }
           Navigator.pushNamedAndRemoveUntil(
               context, RouteNames.tabRoute, (route) => false);
         }

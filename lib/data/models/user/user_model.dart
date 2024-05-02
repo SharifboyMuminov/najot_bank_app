@@ -6,6 +6,7 @@ class UserModel {
   final String phoneNumber;
   final String email;
   final String userId;
+  final String uuId;
 
   UserModel(
       {required this.imageUrl,
@@ -14,6 +15,7 @@ class UserModel {
       required this.lastName,
       required this.password,
       required this.phoneNumber,
+      required this.uuId,
       required this.userId});
 
   UserModel copyWith({
@@ -24,6 +26,7 @@ class UserModel {
     String? phoneNumber,
     String? email,
     String? userId,
+    String? uuId,
   }) =>
       UserModel(
         userName: userName ?? this.userName,
@@ -33,6 +36,7 @@ class UserModel {
         phoneNumber: phoneNumber ?? this.phoneNumber,
         email: email ?? this.email,
         userId: userId ?? this.userId,
+        uuId: uuId ?? this.uuId,
       );
 
   Map<String, dynamic> toJson() {
@@ -44,6 +48,7 @@ class UserModel {
       'phone_number': phoneNumber,
       'email': email,
       'user_id': userId,
+      'uu_id': uuId,
     };
   }
 
@@ -56,6 +61,7 @@ class UserModel {
       password: json['password'] as String? ?? "",
       phoneNumber: json['phone_number'] as String? ?? "",
       userId: json['user_id'] as String? ?? "",
+      uuId: 'uu_id' as String? ?? "",
     );
   }
 
@@ -67,5 +73,6 @@ class UserModel {
         password: "",
         phoneNumber: '',
         userId: "",
+        uuId: '',
       );
 }

@@ -56,8 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(
-        formStatus: FormStatus.authenticated,
-      ));
+          formStatus: FormStatus.authenticated, statusMessage: "new_user"));
     } else {
       emit(state.copyWith(
           formStatus: FormStatus.error,

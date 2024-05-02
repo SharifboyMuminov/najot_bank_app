@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/auth/auth_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/blocs/connectivity/connectivity_bloc.dart';
+import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
 import 'package:untitled1/data/repository/auth_repository.dart';
+import 'package:untitled1/data/repository/user_repository.dart';
 import 'package:untitled1/screens/routes.dart';
 import 'package:untitled1/service/local_natification_service.dart';
 
@@ -20,13 +22,17 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (_) => AuthRepository()),
+        RepositoryProvider(create: (_) => UserRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => ConnectivityBloc()),
           BlocProvider(
-            create: (_) => AuthBloc(
-              authRepository: AuthRepository(),
+              create: (context) =>
+                  UserProfileBloc(context.read<UserRepository>())),
+          BlocProvider(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
             )..add(AuthCheckEvent()),
           ),
         ],
