@@ -14,7 +14,6 @@ import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
 import 'package:untitled1/screens/routes.dart';
 import 'package:untitled1/utils/app_contains.dart';
 import 'package:untitled1/utils/app_images.dart';
-import 'package:untitled1/utils/size_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
