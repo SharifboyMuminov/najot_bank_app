@@ -13,7 +13,7 @@ class UserRepository {
     User? user = FirebaseAuth.instance.currentUser;
     String uuId = "";
     if (user != null) {
-      debugPrint("UUID insertUser: ${user.uid}------");
+      // debugPrint("UUID insertUser: ${user.uid}------");
       uuId = user.uid;
     }
 
