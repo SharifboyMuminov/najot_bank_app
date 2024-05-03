@@ -68,6 +68,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(formStatus: FormStatus.success));
+      add(GetUserProfileByDocIdEvent(userModel: event.userModel));
     } else {
       emit(state.copyWith(
           formStatus: FormStatus.error, errorText: networkResponse.errorText));

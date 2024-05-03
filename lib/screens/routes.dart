@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/data/models/user/user_model.dart';
 import 'package:untitled1/screens/payment/payment_screen.dart';
 import 'package:untitled1/screens/splash/splash_screen.dart';
+import 'package:untitled1/screens/tab_box/profile/update_user.dart';
 import 'package:untitled1/screens/tab_box/tab_screen.dart';
 import 'package:untitled1/screens/transfer/transfer_screen.dart';
 
@@ -29,6 +31,10 @@ class AppRoutes {
         return navigate(const RegisterScreen());
       case RouteNames.onBoardingRoute:
         return navigate(const OnBoardingScreen());
+      case RouteNames.updateUser:
+        return navigate(UpdateUserScreen(
+          userModel: settings.arguments as UserModel,
+        ));
 
       default:
         return navigate(
@@ -54,4 +60,5 @@ class RouteNames {
   static const String paymentRoute = "/payment_route";
   static const String transferRoute = "/transfer_route";
   static const String onBoardingRoute = "/on_boarding_route";
+  static const String updateUser = "/update_user";
 }

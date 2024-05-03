@@ -27,6 +27,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              Navigator.pushNamed(context, RouteNames.updateUser,
+                  arguments: context.read<UserProfileBloc>().state.userModel);
+            },
+            icon: Icon(
+              Icons.settings,
+              size: 24.sp,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
                   context, RouteNames.authRoute, (route) => false);
               context.read<AuthBloc>().add(AuthLogOutEvent());
