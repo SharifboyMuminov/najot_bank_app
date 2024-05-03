@@ -30,15 +30,73 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   final UserRepository userRepository;
 
   Future<void> _addUser(AddUserProfileEvent event, emit) async {
+    // debugPrint("_addUser------");
+
+    emit(state.copyWith(formStatus: FormStatus.loading));
+
     NetworkResponse networkResponse =
         await userRepository.insertUser(userModel: event.userModel);
+
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.error, errorText: networkResponse.errorText));
+    }
   }
 
-  Future<void> _deleteUser(DeleteUserProfileEvent event, emit) async {}
+  Future<void> _deleteUser(DeleteUserProfileEvent event, emit) async {
+    emit(state.copyWith(formStatus: FormStatus.loading));
 
-  Future<void> _updateUser(UpdateUserProfileEvent event, emit) async {}
+    NetworkResponse networkResponse =
+        await userRepository.deleteUser(userModel: event.userModel);
 
-  Future<void> _getUserByDocId(GetUserProfileByDocIdEvent event, emit) async {}
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(formStatus: FormStatus.unauthenticated));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.error, errorText: networkResponse.errorText));
+    }
+  }
 
-  Future<void> _getUserByUuId(GetUserProfileByUuIdEvent event, emit) async {}
+  Future<void> _updateUser(UpdateUserProfileEvent event, emit) async {
+    emit(state.copyWith(formStatus: FormStatus.loading));
+
+    NetworkResponse networkResponse =
+        await userRepository.updateUser(userModel: event.userModel);
+
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.error, errorText: networkResponse.errorText));
+    }
+  }
+
+  Future<void> _getUserByDocId(GetUserProfileByDocIdEvent event, emit) async {
+    emit(state.copyWith(formStatus: FormStatus.loading));
+
+    NetworkResponse networkResponse =
+        await userRepository.getUserByDocId(docId: event.userModel.userId);
+
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(formStatus: FormStatus.unauthenticated));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.error, errorText: networkResponse.errorText));
+    }
+  }
+
+  Future<void> _getUserByUuId(GetUserProfileByUuIdEvent event, emit) async {
+    emit(state.copyWith(formStatus: FormStatus.loading));
+
+    NetworkResponse networkResponse = await userRepository.getUserByUuId();
+
+    if (networkResponse.errorText.isEmpty) {
+      emit(state.copyWith(formStatus: FormStatus.success));
+    } else {
+      emit(state.copyWith(
+          formStatus: FormStatus.error, errorText: networkResponse.errorText));
+    }
+  }
 }

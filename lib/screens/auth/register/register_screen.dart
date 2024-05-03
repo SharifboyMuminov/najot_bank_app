@@ -136,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         } else if (state.formStatus == FormStatus.authenticated) {
           if (state.statusMessage == "new_user") {
-            debugPrint("O'hshadi :)");
+            // debugPrint("O'hshadi :)");
             context
                 .read<UserProfileBloc>()
                 .add(AddUserProfileEvent(userModel: userModel));

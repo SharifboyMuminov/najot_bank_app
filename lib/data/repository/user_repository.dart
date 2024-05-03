@@ -15,9 +15,6 @@ class UserRepository {
       uuId = user.uid;
     }
 
-
-
-
     try {
       DocumentReference documentReference = await _firebaseFirestore
           .collection(AppConstants.userTableName)
@@ -103,7 +100,7 @@ class UserRepository {
     return networkResponse;
   }
 
-  Future<NetworkResponse> getUserByUuId({required String docId}) async {
+  Future<NetworkResponse> getUserByUuId() async {
     NetworkResponse networkResponse = NetworkResponse();
 
     User? user = FirebaseAuth.instance.currentUser;
