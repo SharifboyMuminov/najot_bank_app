@@ -32,7 +32,7 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
                   "NO INTERNET",
                   style: TextStyle(
                     color: AppColors.black,
-                    fontSize: 32.w,
+                    fontSize: 32.we,
                     fontWeight: FontWeight.w400,
                   ),
                 ),

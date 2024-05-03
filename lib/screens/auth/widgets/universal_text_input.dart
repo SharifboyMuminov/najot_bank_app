@@ -58,7 +58,7 @@ class UniversalTextInput extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           filled: true,
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+              EdgeInsets.symmetric(horizontal: 10.we, vertical: 20.he),
           labelText: hintText,
           labelStyle: Theme.of(context).textTheme.bodyMedium,
           enabledBorder: OutlineInputBorder(

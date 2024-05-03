@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   final String userName;
   final String lastName;
@@ -63,6 +65,19 @@ class UserModel {
       userId: json['user_id'] as String? ?? "",
       uuId: 'uu_id' as String? ?? "",
     );
+  }
+
+  static Map<String, dynamic> convertMap(DocumentSnapshot documentSnapshot) {
+    return {
+      "image_url": documentSnapshot["image_url"],
+      "email": documentSnapshot["email"],
+      "user_name": documentSnapshot["user_name"],
+      "last_name": documentSnapshot["last_name"],
+      "password": documentSnapshot["password"],
+      "phone_number": documentSnapshot["phone_number"],
+      "user_id": documentSnapshot["user_id"],
+      "uu_id": documentSnapshot["uu_id"]
+    };
   }
 
   static UserModel initial() => UserModel(

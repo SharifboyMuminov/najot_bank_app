@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_event.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_state.dart';
@@ -93,8 +94,14 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     NetworkResponse networkResponse = await userRepository.getUserByUuId();
 
     if (networkResponse.errorText.isEmpty) {
-      emit(state.copyWith(formStatus: FormStatus.success));
+      // debugPrint(networkResponse.data.toString());
+      emit(state.copyWith(
+          formStatus: FormStatus.success,
+          userModel: networkResponse.data as UserModel,
+          statusMessage: "qonday"));
     } else {
+      debugPrint(networkResponse.errorText.toString());
+
       emit(state.copyWith(
           formStatus: FormStatus.error, errorText: networkResponse.errorText));
     }
