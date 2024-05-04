@@ -40,4 +40,28 @@ class BiometricAuthService {
       return false;
     }
   }
+
+  static Future<bool> authenticateTest() async {
+    try {
+      return await auth.authenticate(
+        localizedReason: "Barmoqg/izdi qo'ying karoche!",
+        // assuming AuthenticationOptions is defined somewhere else
+        options: const AuthenticationOptions(
+          useErrorDialogs: false,
+          stickyAuth: true,
+          biometricOnly: true,
+        ),
+      );
+    } on PlatformException catch (e) {
+      debugPrint("BIOMETRICS ERROR:${e.code}");
+      if (e.code == auth_error.notAvailable) {
+        // Handle not available error
+      } else if (e.code == auth_error.notEnrolled) {
+        // Handle not enrolled error
+      } else {
+        // Handle other errors
+      }
+      return false;
+    }
+  }
 }

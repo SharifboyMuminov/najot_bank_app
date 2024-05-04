@@ -196,15 +196,7 @@ class _PasswordTestScreenState extends State<PasswordTestScreen>
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero),
                         ),
-                        onPressed: () {
-                          StorageRepository.setBool(
-                              key: "active_touch", value: true);
-
-                          BiometricAuthService.authenticate();
-
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, RouteNames.tabRoute, (route) => false);
-                        },
+                        onPressed: _checkBiometric,
                         child: Text(
                           "active",
                           style: TextStyle(
@@ -228,5 +220,20 @@ class _PasswordTestScreenState extends State<PasswordTestScreen>
     }
 
     setState(() {});
+  }
+
+  _checkBiometric() async {
+    bool check = await BiometricAuthService.authenticate();
+    if (check) {
+      StorageRepository.setBool(key: "active_touch", value: true);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Enable biometrik :)")));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error biometrik :)")));
+    }
+
+    Navigator.pushNamedAndRemoveUntil(
+        context, RouteNames.tabRoute, (route) => false);
   }
 }

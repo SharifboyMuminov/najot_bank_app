@@ -26,6 +26,8 @@ class _PasswordScreenState extends State<PasswordScreen>
 
   _init() {
     pinCode = StorageRepository.getString(key: "pin_code");
+    _checkBiometricsTest();
+
     setState(() {});
   }
 
@@ -149,7 +151,7 @@ class _PasswordScreenState extends State<PasswordScreen>
   }
 
   Future<void> _checkBiometricsTest() async {
-    bool auth = await BiometricAuthService.authenticate();
+    bool auth = await BiometricAuthService.authenticateTest();
     if (auth) {
       Navigator.pushNamedAndRemoveUntil(
           context, RouteNames.tabRoute, (route) => false);
