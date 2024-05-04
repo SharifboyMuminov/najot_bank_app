@@ -139,19 +139,21 @@ class _PasswordScreenState extends State<PasswordScreen>
                     setState(() {});
                   }
                 },
-                onTabTouchId: () async {
-                  bool a = await BiometricAuthService.authenticate();
-                  if (a) {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, RouteNames.tabRoute, (route) => false);
-                  }
-                },
+                onTabTouchId: _checkBiometricsTest,
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _checkBiometricsTest() async {
+    bool auth = await BiometricAuthService.authenticate();
+    if (auth) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, RouteNames.tabRoute, (route) => false);
+    }
   }
 
   Future<void> _invalidPassword() async {
