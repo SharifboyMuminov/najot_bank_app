@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_state.dart';
-import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
-import 'package:untitled1/blocs/user_profile/user_profile_event.dart';
 import 'package:untitled1/data/local/storage_repository.dart';
 import 'package:untitled1/data/models/from_status/from_status_enum.dart';
 import 'package:untitled1/screens/routes.dart';
@@ -31,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacementNamed(context, RouteNames.onBoardingRoute);
       }
     } else {
-      Navigator.pushReplacementNamed(context, RouteNames.tabRoute);
+      Navigator.pushReplacementNamed(context, RouteNames.pinScreen);
     }
   }
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/data/models/user/user_model.dart';
+import 'package:untitled1/screens/auth/pin/password_screen.dart';
+import 'package:untitled1/screens/auth/pin/password_set_screen.dart';
+import 'package:untitled1/screens/auth/pin/password_test_screen.dart';
 import 'package:untitled1/screens/payment/payment_screen.dart';
 import 'package:untitled1/screens/splash/splash_screen.dart';
 import 'package:untitled1/screens/tab_box/profile/update_user.dart';
@@ -25,12 +28,25 @@ class AppRoutes {
 
       case RouteNames.transferRoute:
         return navigate(const TransferScreen());
+
       case RouteNames.paymentRoute:
         return navigate(const PaymentScreen());
+
       case RouteNames.authRoute:
         return navigate(const RegisterScreen());
+
       case RouteNames.onBoardingRoute:
         return navigate(const OnBoardingScreen());
+
+      case RouteNames.pinTestScreen:
+        return navigate(const PasswordTestScreen());
+
+      case RouteNames.pinSetScreen:
+        return navigate(const PasswordSetScreen());
+
+      case RouteNames.pinScreen:
+        return navigate(const PasswordScreen());
+
       case RouteNames.updateUser:
         return navigate(UpdateUserScreen(
           userModel: settings.arguments as UserModel,
@@ -61,4 +77,7 @@ class RouteNames {
   static const String transferRoute = "/transfer_route";
   static const String onBoardingRoute = "/on_boarding_route";
   static const String updateUser = "/update_user";
+  static const String pinSetScreen = "/pin_set_screen";
+  static const String pinTestScreen = "/pin_test_screen";
+  static const String pinScreen = "/pin_screen";
 }

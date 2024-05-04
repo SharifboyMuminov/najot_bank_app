@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 .add(AddUserProfileEvent(userModel: userModel));
           }
           Navigator.pushNamedAndRemoveUntil(
-              context, RouteNames.tabRoute, (route) => false);
+              context, RouteNames.pinSetScreen, (route) => false);
         }
       },
     ));

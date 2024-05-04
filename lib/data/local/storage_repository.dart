@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageRepository {
@@ -20,7 +19,7 @@ class StorageRepository {
     required int value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING INT:$value");
+      // debugPrint("SAVING INT:$value");
       _preference!.setInt(key, value);
     }
   }
@@ -37,7 +36,7 @@ class StorageRepository {
     required String value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING STRING:$value");
+      // debugPrint("SAVING STRING:$value");
       _preference!.setString(key, value);
     }
   }
@@ -54,7 +53,7 @@ class StorageRepository {
     required bool value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING BOOL:$value");
+      // debugPrint("SAVING BOOL:$value");
       _preference!.setBool(key, value);
     }
   }
@@ -71,7 +70,7 @@ class StorageRepository {
     required double value,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING DOUBLE:$value");
+      // debugPrint("SAVING DOUBLE:$value");
       _preference!.setDouble(key, value);
     }
   }
@@ -88,7 +87,7 @@ class StorageRepository {
     required List<String> values,
   }) async {
     if (_preference != null) {
-      debugPrint("SAVING LIST:$values");
+      // debugPrint("SAVING LIST:$values");
       _preference!.setStringList(key, values);
     }
   }
