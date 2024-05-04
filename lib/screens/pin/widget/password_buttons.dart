@@ -7,11 +7,13 @@ class PasswordButtons extends StatelessWidget {
     required this.onChange,
     required this.onTabClear,
     this.showTouchId = false,
+    this.onTabTouchId,
   });
 
   final ValueChanged<String> onChange;
   final VoidCallback onTabClear;
   final bool showTouchId;
+  final VoidCallback? onTabTouchId;
 
   @override
   Widget build(BuildContext context) {

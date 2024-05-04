@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/data/local/storage_repository.dart';
-import 'package:untitled1/screens/auth/pin/widget/password_buttons.dart';
+import 'package:untitled1/screens/pin/widget/password_buttons.dart';
 import 'package:untitled1/screens/routes.dart';
 import 'package:untitled1/service/local_auth.dart';
 import 'package:untitled1/utils/size_utils.dart';
 
-class PasswordTestScreen extends StatefulWidget {
-  const PasswordTestScreen({super.key});
+class PasswordScreen extends StatefulWidget {
+  const PasswordScreen({super.key});
 
   @override
-  State<PasswordTestScreen> createState() => _PasswordTestScreenState();
+  State<PasswordScreen> createState() => _PasswordScreenState();
 }
 
-class _PasswordTestScreenState extends State<PasswordTestScreen>
+class _PasswordScreenState extends State<PasswordScreen>
     with SingleTickerProviderStateMixin {
   late Animation<Alignment> animationAlign;
   late AnimationController animationController;
@@ -82,7 +82,7 @@ class _PasswordTestScreenState extends State<PasswordTestScreen>
               ),
               50.getH(),
               Text(
-                "Enter your passcode revers",
+                "Enter your passcode",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.sp,
@@ -117,11 +117,33 @@ class _PasswordTestScreenState extends State<PasswordTestScreen>
                 ),
               ),
               PasswordButtons(
-                onChange: _change,
+                showTouchId: StorageRepository.getBool(key: "active_touch"),
+                onChange: (String value) {
+                  if (password.length < 4) {
+                    password.add(value);
+                    if (password.length == 4) {
+                      if (password.join() == pinCode) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RouteNames.tabRoute, (route) => false);
+                      } else {
+                        _invalidPassword();
+                      }
+                    }
+                  }
+
+                  setState(() {});
+                },
                 onTabClear: () {
                   if (password.isNotEmpty) {
                     password.removeLast();
                     setState(() {});
+                  }
+                },
+                onTabTouchId: () async {
+                  bool a = await BiometricAuthService.authenticate();
+                  if (a) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RouteNames.tabRoute, (route) => false);
                   }
                 },
               ),
@@ -145,88 +167,6 @@ class _PasswordTestScreenState extends State<PasswordTestScreen>
     await Future.delayed(const Duration(seconds: 1));
     password = [];
     error = false;
-    setState(() {});
-  }
-
-  Future<void> _change(String value) async {
-    if (password.length < 4) {
-      password.add(value);
-      if (password.length == 4) {
-        if (password.join() == pinCode) {
-          if (await BiometricAuthService.canAuthenticate()) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog.adaptive(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.face,
-                          color: Colors.black,
-                          size: 100.sp,
-                        ),
-                        Icon(
-                          Icons.touch_app,
-                          color: Colors.black,
-                          size: 100.sp,
-                        ),
-                      ],
-                    ),
-                    actions: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, RouteNames.tabRoute, (route) => false);
-                        },
-                        child: Text(
-                          "skip",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero),
-                        ),
-                        onPressed: () {
-                          StorageRepository.setBool(
-                              key: "active_touch", value: true);
-
-                          BiometricAuthService.authenticate();
-
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, RouteNames.tabRoute, (route) => false);
-                        },
-                        child: Text(
-                          "active",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                });
-          } else {
-            Navigator.pushNamedAndRemoveUntil(
-                context, RouteNames.tabRoute, (route) => false);
-          }
-        } else {
-          _invalidPassword();
-        }
-      }
-    }
-
     setState(() {});
   }
 }

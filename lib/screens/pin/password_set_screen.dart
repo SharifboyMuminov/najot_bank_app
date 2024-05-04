@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:untitled1/screens/auth/pin/widget/password_buttons.dart';
+import 'package:untitled1/screens/pin/widget/password_buttons.dart';
 import 'package:untitled1/screens/routes.dart';
 import 'package:untitled1/utils/size_utils.dart';
 

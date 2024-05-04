@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/data/models/user/user_model.dart';
-import 'package:untitled1/screens/auth/pin/password_screen.dart';
-import 'package:untitled1/screens/auth/pin/password_set_screen.dart';
-import 'package:untitled1/screens/auth/pin/password_test_screen.dart';
 import 'package:untitled1/screens/payment/payment_screen.dart';
+import 'package:untitled1/screens/pin/password_screen.dart';
+import 'package:untitled1/screens/pin/password_set_screen.dart';
+import 'package:untitled1/screens/pin/password_test_screen.dart';
 import 'package:untitled1/screens/splash/splash_screen.dart';
 import 'package:untitled1/screens/tab_box/profile/update_user.dart';
 import 'package:untitled1/screens/tab_box/tab_screen.dart';
