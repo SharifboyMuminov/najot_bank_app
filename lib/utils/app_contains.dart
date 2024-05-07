@@ -8,4 +8,7 @@ class AppConstants {
 
   //Table names...
   static const String userTableName = "Users";
+
+  static const cardBaseName = "card_base";
+  static const userCardBaseName = "user_card_base";
 }

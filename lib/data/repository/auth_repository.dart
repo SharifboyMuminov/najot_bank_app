@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:untitled1/data/models/network_response.dart';
 import 'package:untitled1/data/my_exceptions/firebase_exceptions.dart';
 

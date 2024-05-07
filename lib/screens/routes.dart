@@ -47,6 +47,7 @@ class AppRoutes {
       case RouteNames.pinScreen:
         return navigate(const PasswordScreen());
 
+
       case RouteNames.updateUser:
         return navigate(UpdateUserScreen(
           userModel: settings.arguments as UserModel,
