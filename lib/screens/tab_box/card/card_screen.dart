@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/card/card_state.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
+import 'package:untitled1/screens/tab_box/card/add_card_screen.dart';
 import 'package:untitled1/utils/size_utils.dart';
 
 import '../../../blocs/card/card_bloc.dart';
@@ -29,41 +30,58 @@ class _CardScreenState extends State<CardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddCardScreen();
+                  },
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.add,
+              size: 24.sp,
+            ),
+          ),
+        ],
+      ),
       body: BlocBuilder<CardBloc, CardState>(
         builder: (BuildContext context, CardState state) {
           // debugPrint("Qonday");
-          return ListView(
-            children: [
-              ...List.generate(
-                state.cards.length,
-                (index) {
-                  // debugPrint(state.cards[index].cardNumber);
-
-                  return Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 10.we, vertical: 10.he),
-                    margin: EdgeInsets.symmetric(
-                        vertical: 10.he, horizontal: 20.we),
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12, width: 2.we),
-                      borderRadius: BorderRadius.circular(10.r),
+          if (state.userCards.isEmpty) {
+            return Center(child: Icon(Icons.eight_mp_outlined, size: 50.sp));
+          }
+          return ListView.builder(
+            itemCount: state.userCards.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                margin:
+                    EdgeInsets.symmetric(horizontal: 20.we, vertical: 10.he),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 10.we, vertical: 10.he),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black54, width: 2.we),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      state.cards[index].bankName,
+                      style: TextStyle(color: Colors.red, fontSize: 20.sp),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          state.cards[index].bankName,
-                          style: TextStyle(color: Colors.red, fontSize: 20.sp),
-                        ),
-                      ],
+                    Text(
+                      state.cards[index].cardNumber,
+                      style: TextStyle(color: Colors.red, fontSize: 20.sp),
                     ),
-                  );
-                },
-              ),
-            ],
+                  ],
+                ),
+              );
+            },
           );
         },
       ),

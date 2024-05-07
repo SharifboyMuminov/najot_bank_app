@@ -66,4 +66,17 @@ class CardModel {
       isMain: isMain ?? this.isMain,
     );
   }
+
+  static CardModel defaultCard() {
+    return CardModel(
+      userId: "",
+      balance: 0.0,
+      bankName: "",
+      cardId: "",
+      cardNumber: "",
+      cardSrok: "",
+      isMain: false,
+      type: "",
+    );
+  }
 }

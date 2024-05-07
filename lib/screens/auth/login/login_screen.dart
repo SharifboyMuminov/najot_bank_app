@@ -5,7 +5,7 @@ import 'package:untitled1/blocs/auth/auth_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
 import 'package:untitled1/blocs/auth/auth_state.dart';
 import 'package:untitled1/data/models/from_status/from_status_enum.dart';
-import 'package:untitled1/screens/auth/widgets/save_button.dart';
+import 'package:untitled1/screens/widget/save_button.dart';
 import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
 import 'package:untitled1/utils/app_contains.dart';
 import 'package:untitled1/utils/app_images.dart';

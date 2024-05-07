@@ -9,7 +9,7 @@ import 'package:untitled1/blocs/user_profile/user_profile_event.dart';
 import 'package:untitled1/data/models/from_status/from_status_enum.dart';
 import 'package:untitled1/data/models/user/user_model.dart';
 import 'package:untitled1/screens/auth/login/login_screen.dart';
-import 'package:untitled1/screens/auth/widgets/save_button.dart';
+import 'package:untitled1/screens/widget/save_button.dart';
 import 'package:untitled1/screens/auth/widgets/universal_text_input.dart';
 import 'package:untitled1/screens/routes.dart';
 import 'package:untitled1/utils/app_contains.dart';
