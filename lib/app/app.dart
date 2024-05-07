@@ -3,12 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/auth/auth_bloc.dart';
 import 'package:untitled1/blocs/auth/auth_event.dart';
+import 'package:untitled1/blocs/card/card_event.dart';
 import 'package:untitled1/blocs/connectivity/connectivity_bloc.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
 import 'package:untitled1/data/repository/auth_repository.dart';
+import 'package:untitled1/data/repository/card_repository.dart';
 import 'package:untitled1/data/repository/user_repository.dart';
 import 'package:untitled1/screens/routes.dart';
 import 'package:untitled1/service/local_natification_service.dart';
+
+import '../blocs/card/card_bloc.dart';
 
 class App extends StatelessWidget {
   App({super.key});
@@ -23,6 +27,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider(create: (_) => AuthRepository()),
         RepositoryProvider(create: (_) => UserRepository()),
+        RepositoryProvider(create: (_) => CardRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -35,6 +40,8 @@ class App extends StatelessWidget {
               authRepository: context.read<AuthRepository>(),
             )..add(AuthCheckEvent()),
           ),
+          BlocProvider(
+              create: (context) => CardBloc(context.read<CardRepository>())..add(CallCardsEvent()))
         ],
         child: ScreenUtilInit(
           designSize: const Size(375, 812),

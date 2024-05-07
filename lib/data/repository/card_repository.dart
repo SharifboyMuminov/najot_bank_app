@@ -27,31 +27,11 @@ class CardRepository {
     return networkResponse;
   }
 
-  Future<NetworkResponse> getCardBase({required CardModel cardModel}) async {
-    NetworkResponse networkResponse = NetworkResponse();
-
-    try {
-      QuerySnapshot querySnapshot =
-      await _firebaseFirestore.collection(AppConstants.cardBaseName).get();
-
-      List<CardModel> cards =
-      querySnapshot.docs.map((e) => CardModel.fromJson(e.data())).toList();
-    } on FirebaseException catch (_) {
-      networkResponse.errorText = "insertCard on FirebaseException catch (_)";
-    } catch (_) {
-      networkResponse.errorText = "insertCard  catch (_)";
-    }
-
-    return networkResponse;
-  }
-
   Future<NetworkResponse> updateCard({required CardModel cardModel}) async {
     NetworkResponse networkResponse = NetworkResponse();
 
-
     return networkResponse;
   }
-
 
   Stream<List<CardModel>> getCardByUserId({required String userId}) =>
       _firebaseFirestore
@@ -59,6 +39,12 @@ class CardRepository {
           .where("userId", isEqualTo: userId)
           .snapshots()
           .map((event) =>
+              event.docs.map((e) => CardModel.fromJson(e.data())).toList());
+
+  Stream<List<CardModel>> getCardsData() => _firebaseFirestore
+      .collection(AppConstants.cardBaseName)
+      .snapshots()
+      .map((event) =>
           event.docs.map((e) => CardModel.fromJson(e.data())).toList());
 
   Future<NetworkResponse> deleteCard({required CardModel cardModel}) async {
