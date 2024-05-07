@@ -5,6 +5,7 @@ import 'package:untitled1/blocs/card/card_state.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
 import 'package:untitled1/data/local/storage_repository.dart';
 import 'package:untitled1/screens/tab_box/card/add_card_screen.dart';
+import 'package:untitled1/utils/app_colors.dart';
 import 'package:untitled1/utils/size_utils.dart';
 
 import '../../../blocs/card/card_bloc.dart';
@@ -60,26 +61,46 @@ class _CardScreenState extends State<CardScreen> {
           return ListView.builder(
             itemCount: state.userCards.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin:
-                    EdgeInsets.symmetric(horizontal: 20.we, vertical: 10.he),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10.we, vertical: 10.he),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black54, width: 2.we),
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      state.cards[index].bankName,
-                      style: TextStyle(color: Colors.red, fontSize: 20.sp),
-                    ),
-                    Text(
-                      state.cards[index].cardNumber,
-                      style: TextStyle(color: Colors.red, fontSize: 20.sp),
-                    ),
-                  ],
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.he),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.blue,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state.userCards[index].type,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 36.w,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        "Platinum",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.w,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        state.userCards[index].cardNumber,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 24.w,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

@@ -83,9 +83,12 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
             ),
             SaveButton(
               onTab: () {
-                context
-                    .read<UserProfileBloc>()
-                    .add(UpdateUserProfileEvent(userModel: userModel));
+                context.read<UserProfileBloc>().add(
+                      UpdateUserProfileEvent(
+                        userModel:
+                            userModel.copyWith(userId: widget.userModel.userId),
+                      ),
+                    );
                 Navigator.pop(context);
               },
               active: checkInput,
