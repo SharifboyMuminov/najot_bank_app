@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/card/card_state.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
+import 'package:untitled1/data/local/storage_repository.dart';
 import 'package:untitled1/screens/tab_box/card/add_card_screen.dart';
 import 'package:untitled1/utils/size_utils.dart';
 
@@ -20,9 +21,9 @@ class _CardScreenState extends State<CardScreen> {
   @override
   void initState() {
     Future.microtask(() {
-      context.read<CardBloc>().add(ListenUserCardsEvent(
-          userModel: context.read<UserProfileBloc>().state.userModel));
       context.read<CardBloc>().add(CallCardsEvent());
+      context.read<CardBloc>().add(ListenUserCardsEvent(
+          docId: StorageRepository.getString(key: "docId")));
     });
     super.initState();
   }

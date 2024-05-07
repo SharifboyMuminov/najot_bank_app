@@ -26,6 +26,7 @@ class _PasswordScreenState extends State<PasswordScreen>
 
   _init() {
     pinCode = StorageRepository.getString(key: "pin_code");
+    debugPrint("Code pin: $pinCode");
     _checkBiometricsTest();
 
     setState(() {});

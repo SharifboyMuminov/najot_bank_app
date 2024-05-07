@@ -4,6 +4,8 @@ import 'package:untitled1/data/models/network_response.dart';
 import 'package:untitled1/data/models/user/user_model.dart';
 import 'package:untitled1/utils/app_contains.dart';
 
+import '../local/storage_repository.dart';
+
 class UserRepository {
   static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
@@ -25,6 +27,7 @@ class UserRepository {
           .collection(AppConstants.userTableName)
           .doc(documentReference.id)
           .update({"user_id": documentReference.id, "uu_id": uuId});
+      StorageRepository.setString(key: "docId", value: documentReference.id);
 
       networkResponse.data = userModel.copyWith(
         userId: documentReference.id,

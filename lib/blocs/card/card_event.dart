@@ -32,9 +32,9 @@ class UpdateCardEvent extends CardEvent {
 }
 
 class ListenUserCardsEvent extends CardEvent {
-  final UserModel userModel;
+  final String docId;
 
-  ListenUserCardsEvent({required this.userModel});
+  ListenUserCardsEvent({required this.docId});
 
   @override
   List<Object?> get props => [];
