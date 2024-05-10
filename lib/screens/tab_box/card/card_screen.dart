@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/card/card_state.dart';
-import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
 import 'package:untitled1/data/local/storage_repository.dart';
 import 'package:untitled1/screens/tab_box/card/add_card_screen.dart';
 import 'package:untitled1/utils/app_colors.dart';
 import 'package:untitled1/utils/size_utils.dart';
 
 import '../../../blocs/card/card_bloc.dart';
-import '../../../blocs/card/card_event.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -21,11 +19,7 @@ class CardScreen extends StatefulWidget {
 class _CardScreenState extends State<CardScreen> {
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<CardBloc>().add(CallCardsEvent());
-      context.read<CardBloc>().add(ListenUserCardsEvent(
-          docId: StorageRepository.getString(key: "docId")));
-    });
+
     super.initState();
   }
 

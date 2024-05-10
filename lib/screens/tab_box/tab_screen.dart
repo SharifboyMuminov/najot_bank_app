@@ -5,6 +5,9 @@ import 'package:untitled1/blocs/card/card_bloc.dart';
 import 'package:untitled1/blocs/card/card_event.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_bloc.dart';
 import 'package:untitled1/blocs/user_profile/user_profile_event.dart';
+import 'package:untitled1/blocs/user_profile/user_profile_state.dart';
+import 'package:untitled1/data/local/storage_repository.dart';
+import 'package:untitled1/screens/perevod/perevod_screen.dart';
 
 import 'package:untitled1/screens/tab_box/card/card_screen.dart';
 import 'package:untitled1/screens/tab_box/history/history_screen.dart';
@@ -22,7 +25,7 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen> {
   final List<Widget> _screens = const [
     CardScreen(),
-    HomeScreen(),
+    PerevodScreen(),
     HistoryScreen(),
     ProfileScreen(),
   ];
@@ -42,9 +45,29 @@ class _TabScreenState extends State<TabScreen> {
       child: BlocBuilder<TabBoxCubit, int>(
         builder: (BuildContext context, int state) {
           return Scaffold(
-            body: IndexedStack(
-              index: state,
-              children: _screens,
+            body: Stack(
+              children: [
+                BlocListener<UserProfileBloc, UserProfileState>(
+                  listener: (BuildContext context, UserProfileState state) {
+                    if (state.statusMessage == "qonday") {
+                      debugPrint("state.statusMessage == --------");
+                      context.read<CardBloc>().add(CallCardsEvent());
+                      context.read<CardBloc>().add(ListenUserCardsEvent(
+                            docId: context
+                                .read<UserProfileBloc>()
+                                .state
+                                .userModel
+                                .userId,
+                          ));
+                    }
+                  },
+                  child: const SizedBox(),
+                ),
+                IndexedStack(
+                  index: state,
+                  children: _screens,
+                ),
+              ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: state,
