@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -11,6 +11,14 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: SvgPicture.asset(
+          "assets/icons/email.svg",
+          width: 200,
+          color: Colors.red,
+        ),
+      ),
+    );
   }
 }

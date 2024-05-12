@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:untitled1/data/models/card/card_model.dart';
-import 'package:untitled1/data/models/user/user_model.dart';
 
 abstract class CardEvent extends Equatable {}
 
@@ -41,6 +40,21 @@ class ListenUserCardsEvent extends CardEvent {
 }
 
 class CallCardsEvent extends CardEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class PerevodMoneyEvent extends CardEvent {
+  final CardModel myCard;
+  final CardModel toCard;
+  final double money;
+
+  PerevodMoneyEvent({
+    required this.toCard,
+    required this.myCard,
+    required this.money,
+  });
+
   @override
   List<Object?> get props => [];
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/card/card_bloc.dart';
+import 'package:untitled1/data/models/card/card_model.dart';
 import 'package:untitled1/screens/widget/app_input_formatters.dart';
 import 'package:untitled1/utils/app_colors.dart';
 import 'package:untitled1/utils/size_utils.dart';
@@ -18,6 +19,23 @@ class PerevodScreen extends StatefulWidget {
 
 class _PerevodScreenState extends State<PerevodScreen> {
   TextEditingController controllerCardNumbers = TextEditingController();
+  TextEditingController controllerMoney = TextEditingController();
+
+  CardModel myCard = CardModel.defaultCard();
+  CardModel toCard = CardModel.defaultCard();
+
+  bool showMoneyInput = false;
+
+  @override
+  void initState() {
+    Future.microtask(() {
+      myCard = context.read<CardBloc>().state.userCards.first;
+      debugPrint("asdfsadf asdfasd ad");
+
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,35 +57,72 @@ class _PerevodScreenState extends State<PerevodScreen> {
             CardInputMyTextField(
               maskTextInputFormatter: AppInputFormatters.cardNumberFormatter,
               controller: controllerCardNumbers,
-              onChanged: (String value) {},
+              onChanged: (String value) {
+                String cardNumber = value.replaceAll(" ", "");
+                if (cardNumber.length == 16) {
+                  List<CardModel> cards = context.read<CardBloc>().state.cards;
+
+                  for (CardModel cad in cards) {
+                    if (cad.cardNumber == cardNumber) {
+                      if (myCard.cardNumber == cad.cardNumber) {
+                        // debugPrint("Qonday");
+                        break;
+                      } else {
+                        toCard = cad;
+                        showMoneyInput = true;
+                        setState(() {});
+                        return;
+                      }
+                    }
+                  }
+                  showMoneyInput = false;
+                  setState(() {});
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "No card :(",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
+                }
+              },
             ),
             SizedBox(height: 20.he),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.we),
-              child: TextFormField(
-                maxLength: null,
-                onChanged: (v) {},
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-                inputFormatters: [AppInputFormatters.money],
-                decoration: InputDecoration(
-                  hintText: "Money...",
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.we, vertical: 15.he),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Colors.black, width: 2.we),
+            if (showMoneyInput)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.we),
+                child: TextFormField(
+                  controller: controllerMoney,
+                  maxLength: null,
+                  onChanged: (v) {},
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    borderSide: BorderSide(color: Colors.black, width: 1.we),
+                  inputFormatters: [AppInputFormatters.money],
+                  decoration: InputDecoration(
+                    hintText: "Money...",
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.we, vertical: 15.he),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(color: Colors.black, width: 2.we),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      borderSide: BorderSide(color: Colors.black, width: 1.we),
+                    ),
                   ),
                 ),
               ),
-            ),
             SizedBox(height: 50.he),
             BlocBuilder<CardBloc, CardState>(
               builder: (BuildContext context, CardState state) {
@@ -106,7 +161,7 @@ class _PerevodScreenState extends State<PerevodScreen> {
                                   ),
                                 ),
                                 Text(
-                                  "Platinum",
+                                  state.userCards[index].balance.toString(),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18.w,
@@ -131,9 +186,34 @@ class _PerevodScreenState extends State<PerevodScreen> {
                 );
               },
             ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20.we, vertical: 10.he),
+              width: double.infinity,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  "Ok",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  bool get _validate {
+    return false;
   }
 }
