@@ -55,25 +55,25 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
                   CardModel newCard = CardModel.defaultCard();
 
-                  for (int i = 0; i < cards.length; i++) {
-                    debugPrint(cards[i].cardNumber);
-                    if (cards[i].cardNumber == numberCardController.text &&
-                        srokCardController.text == cards[i].cardSrok) {
-                      context.read<CardBloc>().add(
-                            AddCardStateEvent(
-                              cardModel: cards[i].copyWith(
-                                  userId: context
-                                      .read<UserProfileBloc>()
-                                      .state
-                                      .userModel
-                                      .userId),
-                            ),
-                          );
-                      numberCardController.clear();
-                      srokCardController.clear();
-                      return;
-                    }
-                  }
+                  // for (int i = 0; i < cards.length; i++) {
+                  //   debugPrint(cards[i].cardNumber);
+                  //   if (cards[i].cardNumber == numberCardController.text &&
+                  //       srokCardController.text == cards[i].cardSrok) {
+                  //     context.read<CardBloc>().add(
+                  //           AddCardStateEvent(
+                  //             cardModel: cards[i].copyWith(
+                  //                 userId: context
+                  //                     .read<UserProfileBloc>()
+                  //                     .state
+                  //                     .userModel
+                  //                     .userId),
+                  //           ),
+                  //         );
+                  //     numberCardController.clear();
+                  //     srokCardController.clear();
+                  //     return;
+                  //   }
+                  // }
                 }
 
                 ScaffoldMessenger.of(context)

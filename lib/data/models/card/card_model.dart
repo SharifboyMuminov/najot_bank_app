@@ -48,7 +48,6 @@ class CardModel {
   CardModel copyWith({
     double? balance,
     String? cardId,
-    String? userId,
     String? cardNumber,
     String? cardSrok,
     String? type,
@@ -58,7 +57,7 @@ class CardModel {
     return CardModel(
       balance: balance ?? this.balance,
       cardId: cardId ?? this.cardId,
-      userId: userId ?? this.userId,
+      userId: userId,
       cardNumber: cardNumber ?? this.cardNumber,
       cardSrok: cardSrok ?? this.cardSrok,
       type: type ?? this.type,

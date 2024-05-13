@@ -4,7 +4,8 @@ import 'package:untitled1/data/models/network_response.dart';
 import 'package:untitled1/utils/app_contains.dart';
 
 class CardRepository {
-  static FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firebaseFirestore =
+      FirebaseFirestore.instance;
 
   Future<NetworkResponse> insertCard({required CardModel cardModel}) async {
     NetworkResponse networkResponse = NetworkResponse();
@@ -29,6 +30,11 @@ class CardRepository {
 
   Future<NetworkResponse> updateCard({required CardModel cardModel}) async {
     NetworkResponse networkResponse = NetworkResponse();
+
+    await _firebaseFirestore
+        .collection(AppConstants.userCardBaseName)
+        .doc(cardModel.cardId)
+        .update(cardModel.toJson());
 
     return networkResponse;
   }

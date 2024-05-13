@@ -12,7 +12,7 @@ import 'package:untitled1/data/repository/card_repository.dart';
 import 'package:untitled1/data/repository/user_repository.dart';
 
 class CardBloc extends Bloc<CardEvent, CardState> {
-  CardBloc(this.cardRepository)
+  CardBloc(this._cardRepository)
       : super(
           const CardState(
             userCards: [],
@@ -25,11 +25,31 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     on<AddCardStateEvent>(_addCard);
     on<DeleteCardEvent>(_deleteCard);
     on<UpdateCardEvent>(_updateCard);
+    on<PerevodMoneyEvent>(_perevod);
     on<CallCardsEvent>(_listenCardData);
     on<ListenUserCardsEvent>(_listenCardUser);
   }
 
-  final CardRepository cardRepository;
+  final CardRepository _cardRepository;
+
+  _perevod(PerevodMoneyEvent event, emit) async {
+    double myBalance = event.myCard.balance;
+    double toBalance = event.toCard.balance;
+
+    NetworkResponse networkResponse = await _cardRepository.updateCard(
+        cardModel: event.myCard.copyWith(balance: (myBalance - event.money)));
+
+    if (networkResponse.errorText.isEmpty) {
+      networkResponse = await _cardRepository.updateCard(
+        cardModel: event.toCard.copyWith(
+          balance: (toBalance + event.money),
+        ),
+      );
+      emit(state.copyWith(statusMessage: "ok"));
+    } else {
+      emit(state.copyWith(formStatus: FormStatus.error));
+    }
+  }
 
   Future<void> _addCard(AddCardStateEvent event, emit) async {
     NetworkResponse networkResponse = NetworkResponse();
@@ -37,7 +57,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     networkResponse =
-        await cardRepository.insertCard(cardModel: event.cardModel);
+        await _cardRepository.insertCard(cardModel: event.cardModel);
 
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(formStatus: FormStatus.success));
@@ -52,7 +72,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     networkResponse =
-        await cardRepository.deleteCard(cardModel: event.cardModel);
+        await _cardRepository.deleteCard(cardModel: event.cardModel);
 
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(formStatus: FormStatus.success));
@@ -67,7 +87,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     networkResponse =
-        await cardRepository.updateCard(cardModel: event.cardModel);
+        await _cardRepository.updateCard(cardModel: event.cardModel);
 
     if (networkResponse.errorText.isEmpty) {
       emit(state.copyWith(formStatus: FormStatus.success));
@@ -79,16 +99,16 @@ class CardBloc extends Bloc<CardEvent, CardState> {
   _listenCardUser(ListenUserCardsEvent event, Emitter emit) async {
     // debugPrint("_listenCardUser  keldi ----------------------");
     // debugPrint("DocId:  ${event.docId} ----------------------");
-    await emit.onEach(cardRepository.getCardByUserId(userId: event.docId),
+    await emit.onEach(_cardRepository.getCardByUserId(userId: event.docId),
         onData: (List<CardModel> userCards) {
       emit(state.copyWith(userCards: userCards));
     });
   }
 
   _listenCardData(CallCardsEvent event, Emitter emit) async {
-    await emit.onEach(cardRepository.getCardsData(),
+    await emit.onEach(_cardRepository.getCardsData(),
         onData: (List<CardModel> cards) {
-      emit(state.copyWith(cards: cards));
+      emit(state.copyWith(cards: cards, statusMessage: "hello"));
     });
   }
 }

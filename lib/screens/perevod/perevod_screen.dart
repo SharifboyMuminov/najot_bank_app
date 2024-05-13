@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled1/blocs/card/card_bloc.dart';
+import 'package:untitled1/blocs/card/card_event.dart';
 import 'package:untitled1/data/models/card/card_model.dart';
 import 'package:untitled1/screens/widget/app_input_formatters.dart';
 import 'package:untitled1/utils/app_colors.dart';
@@ -25,17 +26,6 @@ class _PerevodScreenState extends State<PerevodScreen> {
   CardModel toCard = CardModel.defaultCard();
 
   bool showMoneyInput = false;
-
-  @override
-  void initState() {
-    Future.microtask(() {
-      myCard = context.read<CardBloc>().state.userCards.first;
-      debugPrint("asdfsadf asdfasd ad");
-
-      setState(() {});
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +91,9 @@ class _PerevodScreenState extends State<PerevodScreen> {
                 child: TextFormField(
                   controller: controllerMoney,
                   maxLength: null,
-                  onChanged: (v) {},
+                  onChanged: (v) {
+                    setState(() {});
+                  },
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18.sp,
@@ -134,6 +126,9 @@ class _PerevodScreenState extends State<PerevodScreen> {
                 return SizedBox(
                   height: 200.he,
                   child: PageView(
+                    onPageChanged: (v) {
+                      myCard = context.read<CardBloc>().state.userCards[v];
+                    },
                     scrollDirection: Axis.horizontal,
                     children: List.generate(
                       state.userCards.length,
@@ -191,12 +186,32 @@ class _PerevodScreenState extends State<PerevodScreen> {
               width: double.infinity,
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: _validate ? Colors.blue : Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: _validate
+                    ? () {
+                        context.read<CardBloc>().add(
+                              PerevodMoneyEvent(
+                                toCard: toCard,
+                                myCard: myCard,
+                                money: double.parse(
+                                  controllerMoney.text.replaceAll(' ', ""),
+                                ),
+                              ),
+                            );
+                        controllerCardNumbers.clear();
+                        controllerMoney.clear();
+                        myCard = CardModel.defaultCard();
+                        toCard = CardModel.defaultCard();
+
+                        bool showMoneyInput = false;
+
+                        setState(() {});
+                      }
+                    : null,
                 child: Text(
                   "Ok",
                   style: TextStyle(
@@ -214,6 +229,8 @@ class _PerevodScreenState extends State<PerevodScreen> {
   }
 
   bool get _validate {
-    return false;
+    return myCard.cardNumber.isNotEmpty &&
+        toCard.cardNumber.isNotEmpty &&
+        controllerMoney.text.isNotEmpty;
   }
 }
